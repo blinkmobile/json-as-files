@@ -5,6 +5,10 @@
   "bugs": {
     "url": "https://github.com/blinkmobile/json-as-files.js/issues"
   },
+  "dependencies": {
+    "graceful-fs": "4.1.2",
+    "json3": "3.3.2"
+  },
   "devDependencies": {
     "@jokeyrhyme/eslint-config-es2015": "^1.0.0",
     "@jokeyrhyme/eslint-config-es5": "^1.0.0",
