@@ -116,7 +116,7 @@ writeData({
 - @property {string} filePath
 
 
-### writeData (options, callback) (NOT IMPLEMENTED)
+### writeData (options, callback)
 
 - @param {WriteOptions} options
 - @param {Function} [callback?]

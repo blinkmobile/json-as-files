@@ -8,6 +8,7 @@
   "dependencies": {
     "graceful-fs": "4.1.2",
     "json3": "3.3.2",
+    "lodash.isequal": "3.0.4",
     "traverse": "0.6.6"
   },
   "devDependencies": {
