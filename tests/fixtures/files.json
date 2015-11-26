@@ -1,0 +1,15 @@
+{
+  "deep": {
+    "nested": {
+      "abc": {
+        "$file": "abc.txt"
+      },
+      "array": [
+        123,
+        {
+          "$file": "ghi.txt"
+        }
+      ]
+    }
+  }
+}

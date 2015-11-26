@@ -7,7 +7,8 @@
   },
   "dependencies": {
     "graceful-fs": "4.1.2",
-    "json3": "3.3.2"
+    "json3": "3.3.2",
+    "traverse": "0.6.6"
   },
   "devDependencies": {
     "@jokeyrhyme/eslint-config-es2015": "^1.0.0",
@@ -36,7 +37,7 @@
   "scripts": {
     "eslint": "eslint --fix .",
     "fixpack": "fixpack",
-    "nyc": "nyc check-coverage -f 0 -l 50 -s 50",
+    "nyc": "nyc check-coverage -f 80 -l 80 -s 80",
     "posttest": "npm run nyc && npm run eslint && npm run fixpack",
     "test": "nyc ava tests/**/*.js"
   }
