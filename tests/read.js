@@ -15,19 +15,17 @@ const plain = require('./fixtures/plain.json');
 
 let abc;
 test.before('load abc.txt', (t) => {
-  fsReadFile('./fixtures/abc.txt', 'utf8')
+  return fsReadFile('./fixtures/abc.txt', 'utf8')
   .then((data) => {
     abc = data;
-    t.end();
   });
 });
 
 let ghi;
 test.before('load ghi.txt', (t) => {
-  fsReadFile('./fixtures/ghi.txt', 'utf8')
+  return fsReadFile('./fixtures/ghi.txt', 'utf8')
   .then((data) => {
     ghi = data;
-    t.end();
   });
 });
 
@@ -44,14 +42,9 @@ test('readData({ filePath: "./fixtures/nonexistant.json" })', (t) => {
 });
 
 test('readData({ filePath: "./fixtures/plain.json" })', (t) => {
-  readData({ filePath: './fixtures/plain.json' })
+  return readData({ filePath: './fixtures/plain.json' })
   .then((data) => {
     t.same(data, plain);
-    t.end();
-  })
-  .catch((err) => {
-    t.ifError(err);
-    t.end();
   });
 });
 
@@ -64,14 +57,9 @@ test('readData({ filePath: "./fixtures/plain.json" }, callback)', (t) => {
 });
 
 test('readData({ filePath: "./fixtures/files.json" })', (t) => {
-  readData({ filePath: './fixtures/files.json' })
+  return readData({ filePath: './fixtures/files.json' })
   .then((data) => {
     t.is(data.deep.nested.abc, abc);
     t.is(data.deep.nested.array[1], ghi);
-    t.end();
-  })
-  .catch((err) => {
-    t.ifError(err);
-    t.end();
   });
 });
