@@ -43,7 +43,7 @@ writeData({ filePath: '/path/to/object.json', data: { /* ... */ } })
 ```
 
 
-### examples with "$file"
+### read example with "$file"
 
 object.json:
 ```json
@@ -64,6 +64,39 @@ readData({ filePath: '/path/to/object.json' })
 .then((data) => {
   console.assert(data.title === 'short and sweet');
   console.assert(data.content === 'Too long / inconvenient to include in the primary JSON file.');
+});
+```
+
+### write example with "$file"
+
+object.json (already on disk):
+```json
+{
+  "title": "short and sweet",
+  "content": { "$file": "content.txt"}
+}
+```
+
+content.txt may or may not exist beforehand
+
+JavaScript:
+```js
+writeData({
+  filePath: '/path/to/object.json'
+}, {
+  title: 'new title',
+  content: 'new content'
+})
+.then(() => {
+  // avoid ...Sync() methods in production, please!
+  console.assert(fs.existsSync('/path/to/object.json'));
+  console.assert(fs.existsSync('/path/to/content.txt'));
+
+  return readData({ filePath: '/path/to/object.json' })
+})
+.then((data) => {
+  console.assert(data.title === 'new title');
+  console.assert(data.content === 'new content');
 });
 ```
 
