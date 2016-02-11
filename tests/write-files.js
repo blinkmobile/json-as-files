@@ -6,15 +6,14 @@ const path = require('path');
 
 // foreign modules
 
-const fs = require('graceful-fs');
-const mkdirp = require('mkdirp');
+const pify = require('pify');
+const fsp = pify(require('graceful-fs'));
+const mkdirpp = pify(require('mkdirp'));
 const test = require('ava');
 
 // local modules
 
-const fsReadFile = require('../lib/read').fsReadFile;
 const readJSON = require('../lib/read').readJSON;
-const fsWriteFile = require('../lib/write').fsWriteFile;
 const isFileReference = require('../lib/read').isFileReference;
 const readData = require('..').readData;
 const writeData = require('..').writeData;
@@ -25,28 +24,21 @@ const TEMP_ROOT = path.join(__dirname, '..', 'tmp');
 const FILES_PATH = path.join(TEMP_ROOT, 'files.json');
 
 function fsUnlinkFile (filePath) {
-  return new Promise((resolve, reject) => {
-    fs.unlink(filePath, (err) => {
-      if (err && err.code !== 'ENOENT') { // it's fine if the file is already gone
-        reject(err);
-        return;
+  return fsp.unlink(filePath)
+    .catch((err) => {
+      // it's fine if the file is already gone
+      if (err.code !== 'ENOENT') {
+        throw err;
       }
-      resolve();
     });
-  });
 }
 
-test.before(`mkdir -p TEMP_ROOT`, (t) => {
-  mkdirp(TEMP_ROOT, (err) => {
-    t.ifError(err);
-    t.end();
-  });
-});
+test.before(`mkdir -p TEMP_ROOT`, (t) => mkdirpp(TEMP_ROOT));
 
 test.beforeEach('copy ./fixtures/files.json -> ../tmp/files.json', () => {
-  return fsReadFile(path.join(__dirname, 'fixtures', 'files.json'), 'utf8')
+  return fsp.readFile(path.join(__dirname, 'fixtures', 'files.json'), 'utf8')
     .then((contents) => {
-      return fsWriteFile(path.join(TEMP_ROOT, 'files.json'), contents, 'utf8');
+      return fsp.writeFile(path.join(TEMP_ROOT, 'files.json'), contents, 'utf8');
     });
 });
 
@@ -75,11 +67,11 @@ test.beforeEach('writeData({ filePath: "../tmp/files.json", data: ... })', (t) =
 test('expected contents: abc.txt, ghi.txt', (t) => {
   const ABC_PATH = path.join(TEMP_ROOT, 'abc.txt');
   const GHI_PATH = path.join(TEMP_ROOT, 'ghi.txt');
-  return fsReadFile(ABC_PATH, 'utf8')
+  return fsp.readFile(ABC_PATH, 'utf8')
     .then((abc) => {
       t.is(abc, INPUT.deep.nested.abc);
 
-      return fsReadFile(GHI_PATH, 'utf8');
+      return fsp.readFile(GHI_PATH, 'utf8');
     })
     .then((ghi) => {
       t.is(ghi, INPUT.deep.nested.array[1]);

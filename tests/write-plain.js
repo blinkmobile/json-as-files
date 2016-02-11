@@ -6,8 +6,9 @@ const path = require('path');
 
 // foreign modules
 
-const fs = require('graceful-fs');
-const mkdirp = require('mkdirp');
+const pify = require('pify');
+const fsp = pify(require('graceful-fs'));
+const mkdirpp = pify(require('mkdirp'));
 const test = require('ava');
 
 // local modules
@@ -21,23 +22,16 @@ const TEMP_ROOT = path.join(__dirname, '..', 'tmp');
 const fixture = require('./fixtures/plain.json');
 
 function fsUnlinkFile (filePath) {
-  return new Promise((resolve, reject) => {
-    fs.unlink(filePath, (err) => {
-      if (err && err.code !== 'ENOENT') { // it's fine if the file is already gone
-        reject(err);
-        return;
+  return fsp.unlink(filePath)
+    .catch((err) => {
+      // it's fine if the file is already gone
+      if (err.code !== 'ENOENT') {
+        throw err;
       }
-      resolve();
     });
-  });
 }
 
-test.before(`mkdir -p TEMP_ROOT`, (t) => {
-  mkdirp(TEMP_ROOT, (err) => {
-    t.ifError(err);
-    t.end();
-  });
-});
+test.before(`mkdir -p TEMP_ROOT`, (t) => mkdirpp(TEMP_ROOT));
 
 test.beforeEach('rm ../tmp/plain.json', (t) => {
   t.context.filePath = path.join(TEMP_ROOT, 'plain.json');
@@ -52,7 +46,7 @@ test('writeData({ filePath: "../tmp/plain.json", data: ... })', (t) => {
   });
 });
 
-test('writeData({ filePath: "../tmp/plain.json", data: ... } callback)', (t) => {
+test.cb('writeData({ filePath: "../tmp/plain.json", data: ... } callback)', (t) => {
   writeData({ filePath: t.context.filePath, data: fixture }, (err) => {
     t.ifError(err);
     readData({ filePath: t.context.filePath }, (readErr, data) => {

@@ -12,10 +12,8 @@ const main = require('..');
 
 test('exports readData() function', (t) => {
   t.is(typeof main.readData, 'function');
-  t.end();
 });
 
 test('exports writeData() function', (t) => {
   t.is(typeof main.writeData, 'function');
-  t.end();
 });
