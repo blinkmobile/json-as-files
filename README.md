@@ -83,10 +83,42 @@ content.txt may or may not exist beforehand
 JavaScript:
 ```js
 writeData({
+  data: {
+    title: 'new title',
+    content: 'new content'
+  },
   filePath: '/path/to/object.json'
-}, {
-  title: 'new title',
-  content: 'new content'
+})
+.then(() => {
+  // avoid ...Sync() methods in production, please!
+  console.assert(fs.existsSync('/path/to/object.json'));
+  console.assert(fs.existsSync('/path/to/content.txt'));
+
+  return readData({ filePath: '/path/to/object.json' })
+})
+.then((data) => {
+  console.assert(data.title === 'new title');
+  console.assert(data.content === 'new content');
+});
+```
+
+
+### write example with "$file" template
+
+object.json and content.txt may or may not exist beforehand
+
+JavaScript:
+```js
+writeData({
+  data: {
+    title: 'new title',
+    content: 'new content'
+  },
+  filePath: '/path/to/object.json',
+  template: {
+    title: 'short and sweet',
+    content: { $file: 'content.txt' }
+  }
 })
 .then(() => {
   // avoid ...Sync() methods in production, please!
@@ -128,3 +160,4 @@ writeData({
 - @typedef {Object} WriteOptions
 - @property {string} filePath
 - @property {\*} data
+- @property {\*} template
