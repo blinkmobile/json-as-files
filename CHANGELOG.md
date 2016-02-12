@@ -1,6 +1,14 @@
 # Change Log
 
 
+## 1.1.1
+
+
+### Fixed
+
+- create missing directories before trying to write files in them
+
+
 ## 1.1.0
 
 
