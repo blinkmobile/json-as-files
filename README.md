@@ -137,27 +137,83 @@ writeData({
 ## API
 
 
-### readData (options, callback)
+### readData()
 
-- @param {ReadOptions} options
-- @param {Function} [callback?]
-- @returns {Promise}
+```
+readData (options: ReadOptions, callback?: Function)
+  => Promise[Object|Array]
+```
+
+Read data from the provided `filePath` and other files relative to it.
+
 
 #### ReadOptions
 
-- @typedef {Object} ReadOptions
-- @property {string} filePath
+```
+interface ReadOptions {
+  filePath: String
+}
+```
 
 
-### writeData (options, callback)
+### writeData()
 
-- @param {WriteOptions} options
-- @param {Function} [callback?]
-- @returns {Promise}
+```
+writeData (options: WriteOptions, callback?: Function)
+  => Promise
+```
+
+Write data to the provided `filePath` and other files relative to it.
+Internal uses `planWriteData()` and `writePlan()`.
+
 
 #### WriteOptions
 
-- @typedef {Object} WriteOptions
-- @property {string} filePath
-- @property {\*} data
-- @property {\*} template
+```
+interface WriteOptions {
+  filePath: String,
+  data?: Any,
+  template?: Any
+}
+```
+
+
+### planWriteData()
+
+```
+planWriteData (options: WriteOptions, callback?: Function)
+  => Promise[PlannedWrite[]]
+```
+
+Like `writeData()`, but do not perform actual writes.
+Prepare a list of planned write operations instead.
+
+
+#### PlannedWrite
+
+```
+interface PlannedWrite {
+  targetPath: String,
+  value: Any
+}
+```
+
+
+### writePlan()
+
+```
+writePlan (options: WritePlanOptions)
+  => Promise
+```
+
+Execute a list of planned write operations, writing to target files.
+If `plannedWrite.value` is not already a String, then `JSON.stringify()` first.
+
+
+### WritePlanOptions
+
+```
+interface WritePlanOptions {
+  plan: PlannedWrite[]
+}
+```

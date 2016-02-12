@@ -3,8 +3,13 @@
 // local modules
 
 const readData = require('./lib/read').readData;
-const writeData = require('./lib/write').writeData;
+const write = require('./lib/write');
 
 // this module
 
-module.exports = { readData, writeData };
+module.exports = {
+  readData,
+  planWriteData: write.planWriteData,
+  writeData: write.writeData,
+  writePlan: write.writePlan
+};
