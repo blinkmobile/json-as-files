@@ -166,6 +166,9 @@ writeData (options: WriteOptions, callback?: Function)
 Write data to the provided `filePath` and other files relative to it.
 Internal uses `planWriteData()` and `writePlan()`.
 
+Reads pre-existing destination file (if any) to preserve past references (if any).
+If "template" option is provided, then bypass this check.
+
 
 #### WriteOptions
 
