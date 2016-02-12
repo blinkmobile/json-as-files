@@ -213,7 +213,7 @@ Execute a list of planned write operations, writing to target files.
 If `plannedWrite.value` is not already a String, then `JSON.stringify()` first.
 
 
-### WritePlanOptions
+#### WritePlanOptions
 
 ```
 interface WritePlanOptions {
