@@ -6,6 +6,7 @@ const path = require('path');
 
 // foreign modules
 
+const loadJson = require('load-json-file');
 const pify = require('pify');
 const fsp = pify(require('graceful-fs'));
 const temp = pify(require('temp').track());
@@ -13,7 +14,6 @@ const test = require('ava');
 
 // local modules
 
-const readJSON = require('../lib/read').readJSON;
 const pkg = require('../package.json');
 const readData = require('..').readData;
 const writeData = require('..').writeData;
@@ -38,9 +38,7 @@ test.beforeEach((t) => {
       t.context.tempDir = dirPath;
       t.context.jsonPath = path.join(dirPath, 'files.json');
     })
-    .then(() => readJSON({
-      filePath: path.join(__dirname, 'fixtures', 'files.json')
-    }))
+    .then(() => loadJson(path.join(__dirname, 'fixtures', 'files.json')))
     .then((template) => writeData({
       data: INPUT,
       filePath: t.context.jsonPath,
@@ -60,7 +58,7 @@ test('expected contents: abc.txt, ghi.txt', (t) => {
 });
 
 test('expected contents: files.json', (t) => {
-  return readJSON({ filePath: t.context.jsonPath })
+  return loadJson(t.context.jsonPath)
     .then((rawData) => {
       t.is(typeof rawData.deep.nested.abc, 'object');
       t.is(rawData.deep.nested.abc.$file, 'abc.txt');

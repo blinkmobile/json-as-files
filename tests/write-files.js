@@ -6,6 +6,7 @@ const path = require('path');
 
 // foreign modules
 
+const loadJson = require('load-json-file');
 const pify = require('pify');
 const fsp = pify(require('graceful-fs'));
 const mkdirpp = pify(require('mkdirp'));
@@ -13,7 +14,6 @@ const test = require('ava');
 
 // local modules
 
-const readJSON = require('../lib/read').readJSON;
 const isFileReference = require('../lib/read').isFileReference;
 const readData = require('..').readData;
 const writeData = require('..').writeData;
@@ -79,7 +79,7 @@ test('expected contents: abc.txt, ghi.txt', (t) => {
 });
 
 test('expected contents: files.json', (t) => {
-  return readJSON({ filePath: FILES_PATH }, 'utf8')
+  return loadJson(FILES_PATH)
     .then((rawData) => {
       t.ok(isFileReference(rawData.deep.nested.abc));
       t.is(rawData.deep.nested.abc.$file, 'abc.txt');
