@@ -40,3 +40,20 @@ test.serial('expected contents', (t) => {
       t.same(value, { def: true });
     });
 });
+
+test.serial('non-existant target directory', (t) => {
+  const NEW_DIR = path.join(t.context.tempDir, 'new');
+  const ABC_PATH = path.join(NEW_DIR, 'abc.txt');
+  const DEF_PATH = path.join(NEW_DIR, 'def.json');
+  return writePlan({
+    plan: [
+      { targetPath: ABC_PATH, value: 'abc' },
+      { targetPath: DEF_PATH, value: { def: true } }
+    ]
+  })
+    .then(() => fsp.readFile(ABC_PATH, 'utf8').then((value) => t.is(value, 'abc')))
+    .then(() => {
+      const value = require(DEF_PATH);
+      t.same(value, { def: true });
+    });
+});
