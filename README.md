@@ -134,15 +134,6 @@ writeData({
 ## API
 
 
-### isFileReference()
-
-```
-isFileReference (value: Any) => Boolean
-```
-
-Does this value conform to our definition of a "file reference"?
-
-
 ### findReferences()
 
 ```
@@ -161,6 +152,26 @@ interface FoundReference {
   type: String, // only "$file" has been implemented so far
 }
 ```
+
+
+### isFileInReferences()
+
+```
+isFileReference (refs: FoundReference[], dataPath: String, filePath: String)
+  => Boolean
+```
+
+We scanned a data structure for references (see `findReferences()`).
+Is this file included in those references?
+
+
+### isFileReference()
+
+```
+isFileReference (value: Any) => Boolean
+```
+
+Does this value conform to our definition of a "file reference"?
 
 
 ### readData()

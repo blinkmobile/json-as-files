@@ -14,6 +14,7 @@ export type JSONObject = { [id:string]: mixed }
 
 module.exports = {
   findReferences: refs.findReferences,
+  isFileInReferences: refs.isFileInReferences,
   isFileReference: refs.isFileReference,
   readData: read.readData,
   planWriteData: write.planWriteData,
