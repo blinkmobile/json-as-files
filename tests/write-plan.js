@@ -7,7 +7,7 @@ const path = require('path');
 // foreign modules
 
 const pify = require('pify');
-const fsp = pify(require('graceful-fs'));
+const fsp = require('@jokeyrhyme/pify-fs');
 const temp = pify(require('temp').track());
 const test = require('ava');
 
@@ -37,7 +37,7 @@ test.serial('expected contents', (t) => {
     .then(() => fsp.readFile(ABC_PATH, 'utf8').then((value) => t.is(value, 'abc')))
     .then(() => {
       const value = require(DEF_PATH);
-      t.same(value, { def: true });
+      t.deepEqual(value, { def: true });
     });
 });
 
@@ -54,6 +54,6 @@ test.serial('non-existant target directory', (t) => {
     .then(() => fsp.readFile(ABC_PATH, 'utf8').then((value) => t.is(value, 'abc')))
     .then(() => {
       const value = require(DEF_PATH);
-      t.same(value, { def: true });
+      t.deepEqual(value, { def: true });
     });
 });

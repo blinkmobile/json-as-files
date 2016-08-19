@@ -2,8 +2,7 @@
 
 // foreign modules
 
-const pify = require('pify');
-const fsp = pify(require('graceful-fs'));
+const fsp = require('@jokeyrhyme/pify-fs');
 const test = require('ava');
 
 // local modules
@@ -36,21 +35,21 @@ test('readData({ filePath: "./fixtures/nonexistant.json" })', (t) => {
     t.fail('should not resolve');
   })
   .catch((err) => {
-    t.ok(err);
+    t.truthy(err);
   });
 });
 
 test('readData({ filePath: "./fixtures/plain.json" })', (t) => {
   return readData({ filePath: './fixtures/plain.json' })
   .then((data) => {
-    t.same(data, plain);
+    t.deepEqual(data, plain);
   });
 });
 
 test.cb('readData({ filePath: "./fixtures/plain.json" }, callback)', (t) => {
   readData({ filePath: './fixtures/plain.json' }, (err, data) => {
     t.ifError(err);
-    t.same(data, plain);
+    t.deepEqual(data, plain);
     t.end();
   });
 });

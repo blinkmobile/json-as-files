@@ -1,9 +1,6 @@
-# json-as-files
+# json-as-files [![Travis CI Status](https://travis-ci.org/blinkmobile/json-as-files.js.svg?branch=master)](https://travis-ci.org/blinkmobile/json-as-files.js) [![npm](https://img.shields.io/npm/v/@blinkmobile/json-as-files.svg?maxAge=2592000)](https://www.npmjs.com/package/@blinkmobile/json-as-files) [![AppVeyor Status](https://ci.appveyor.com/api/projects/status/github/blinkmobile/json-as-files.js?branch=master&svg=true)](https://ci.appveyor.com/project/blinkmobile/json-as-files.js)
 
 convert between files and JSON strings, maintaining certain values as separate files
-
-[![npm module](https://img.shields.io/npm/v/@blinkmobile/json-as-files.svg)](https://www.npmjs.com/package/@blinkmobile/json-as-files)
-[![Build Status](https://travis-ci.org/blinkmobile/json-as-files.js.png)](https://travis-ci.org/blinkmobile/json-as-files.js)
 
 
 ## Why?
@@ -135,6 +132,46 @@ writeData({
 
 
 ## API
+
+
+### findReferences()
+
+```
+findReferences (data: Object) => Promise[FoundReference[]]
+```
+
+Scan a data structure to locate references. Used internally.
+
+
+#### FoundReference
+
+```
+interface FoundReference {
+  path: String[], // property path to the reference within the parent structure
+  target: String, // for "$file" references, this is a filename or path
+  type: String, // only "$file" has been implemented so far
+}
+```
+
+
+### isFileInReferences()
+
+```
+isFileReference (refs: FoundReference[], dataPath: String, filePath: String)
+  => Boolean
+```
+
+We scanned a data structure for references (see `findReferences()`).
+Is this file included in those references?
+
+
+### isFileReference()
+
+```
+isFileReference (value: Any) => Boolean
+```
+
+Does this value conform to our definition of a "file reference"?
 
 
 ### readData()

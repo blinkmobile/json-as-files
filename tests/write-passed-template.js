@@ -8,7 +8,7 @@ const path = require('path');
 
 const loadJson = require('load-json-file');
 const pify = require('pify');
-const fsp = pify(require('graceful-fs'));
+const fsp = require('@jokeyrhyme/pify-fs');
 const temp = pify(require('temp').track());
 const test = require('ava');
 
@@ -67,6 +67,6 @@ test('expected contents: files.json', (t) => {
     })
     .then(() => readData({ filePath: t.context.jsonPath }))
     .then((output) => {
-      t.same(output, INPUT);
+      t.deepEqual(output, INPUT);
     });
 });

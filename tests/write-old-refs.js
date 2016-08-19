@@ -7,7 +7,7 @@ const path = require('path');
 // foreign modules
 
 const pify = require('pify');
-const fsp = pify(require('graceful-fs'));
+const fsp = require('@jokeyrhyme/pify-fs');
 const mkdirpp = pify(require('mkdirp'));
 const test = require('ava');
 
@@ -76,6 +76,6 @@ test('expected missing files: old-abc.txt, old-ghi.txt', (t) => {
 test('expected contents: files.json', (t) => {
   return readData({ filePath: FILES_PATH })
     .then((output) => {
-      t.same(output, INPUT);
+      t.deepEqual(output, INPUT);
     });
 });
