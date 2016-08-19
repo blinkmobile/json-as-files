@@ -1,7 +1,7 @@
 {
   "name": "@blinkmobile/json-as-files",
   "description": "convert between files and JSON strings, maintaining certain values as separate files",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "bugs": {
     "url": "https://github.com/blinkmobile/json-as-files.js/issues"
   },

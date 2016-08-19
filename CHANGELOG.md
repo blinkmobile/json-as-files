@@ -1,6 +1,18 @@
 # Change Log
 
 
+## 1.2.0
+
+
+### Added
+
+- BC-34: expose (previously) internal `findReferences()` (#4, @jokeyrhyme)
+
+- BC-34: new `isFileInReferences()`
+
+- BC-34: expose (previously) internal `isFileReference()`
+
+
 ## 1.1.1
 
 
