@@ -22,9 +22,13 @@
     "eslint-plugin-promise": "^2.0.0",
     "eslint-plugin-standard": "^2.0.0",
     "fixpack": "^2.2.0",
+    "flow-bin": "^0.30.0",
     "mkdirp": "^0.5.1",
     "nyc": "^8.1.0",
-    "temp": "0.8.3"
+    "temp": "^0.8.3"
+  },
+  "directories": {
+    "test": "tests"
   },
   "engines": {
     "node": ">=4.0.0",
@@ -34,15 +38,20 @@
   "keywords": [],
   "license": "BSD-3-Clause",
   "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/blinkmobile/json-as-files.js.git"
   },
   "scripts": {
+    "ava": "nyc ava tests/**/*.js",
     "eslint": "eslint --fix --cache .",
     "fixpack": "fixpack",
+    "flow_check": "flow check || exit 0",
     "nyc": "nyc check-coverage",
-    "posttest": "npm run nyc && npm run eslint && npm run fixpack",
-    "test": "nyc ava tests/**/*.js"
+    "posttest": "npm run eslint && npm run flow_check && npm run fixpack",
+    "test": "npm run ava && npm run nyc"
   }
 }

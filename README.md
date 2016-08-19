@@ -1,9 +1,6 @@
-# json-as-files
+# json-as-files [![Travis CI Status](https://travis-ci.org/blinkmobile/json-as-files.js.svg?branch=master)](https://travis-ci.org/blinkmobile/json-as-files.js) [![npm](https://img.shields.io/npm/v/@blinkmobile/json-as-files.svg?maxAge=2592000)](https://www.npmjs.com/package/@blinkmobile/json-as-files) [![AppVeyor Status](https://ci.appveyor.com/api/projects/status/github/blinkmobile/json-as-files.js?branch=master&svg=true)](https://ci.appveyor.com/project/blinkmobile/json-as-files.js)
 
 convert between files and JSON strings, maintaining certain values as separate files
-
-[![npm module](https://img.shields.io/npm/v/@blinkmobile/json-as-files.svg)](https://www.npmjs.com/package/@blinkmobile/json-as-files)
-[![Build Status](https://travis-ci.org/blinkmobile/json-as-files.js.png)](https://travis-ci.org/blinkmobile/json-as-files.js)
 
 
 ## Why?

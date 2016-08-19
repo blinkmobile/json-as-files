@@ -1,3 +1,6 @@
 {
-  "extends": ["eslint:recommended", "semistandard"]
+  "extends": [
+    "eslint:recommended",
+    "semistandard"
+  ]
 }
