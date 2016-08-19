@@ -7,7 +7,7 @@ const path = require('path');
 // foreign modules
 
 const pify = require('pify');
-const fsp = pify(require('graceful-fs'));
+const fsp = require('@jokeyrhyme/pify-fs');
 const temp = pify(require('temp').track());
 const test = require('ava');
 

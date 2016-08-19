@@ -8,7 +8,7 @@ const path = require('path');
 
 const loadJson = require('load-json-file');
 const pify = require('pify');
-const fsp = pify(require('graceful-fs'));
+const fsp = require('@jokeyrhyme/pify-fs');
 const mkdirpp = pify(require('mkdirp'));
 const test = require('ava');
 

@@ -2,8 +2,7 @@
 
 // foreign modules
 
-const pify = require('pify');
-const fsp = pify(require('graceful-fs'));
+const fsp = require('@jokeyrhyme/pify-fs');
 const test = require('ava');
 
 // local modules
