@@ -42,7 +42,7 @@ test('writeData({ filePath: "../tmp/plain.json", data: ... })', (t) => {
   return writeData({ filePath: t.context.filePath, data: fixture })
   .then(() => readData({ filePath: t.context.filePath }))
   .then((data) => {
-    t.same(data, fixture);
+    t.deepEqual(data, fixture);
   });
 });
 
@@ -51,7 +51,7 @@ test.cb('writeData({ filePath: "../tmp/plain.json", data: ... } callback)', (t) 
     t.ifError(err);
     readData({ filePath: t.context.filePath }, (readErr, data) => {
       t.ifError(readErr);
-      t.same(data, fixture);
+      t.deepEqual(data, fixture);
       t.end();
     });
   });

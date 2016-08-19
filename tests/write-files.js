@@ -81,14 +81,14 @@ test('expected contents: abc.txt, ghi.txt', (t) => {
 test('expected contents: files.json', (t) => {
   return loadJson(FILES_PATH)
     .then((rawData) => {
-      t.ok(isFileReference(rawData.deep.nested.abc));
+      t.truthy(isFileReference(rawData.deep.nested.abc));
       t.is(rawData.deep.nested.abc.$file, 'abc.txt');
-      t.ok(isFileReference(rawData.deep.nested.array[1]));
+      t.truthy(isFileReference(rawData.deep.nested.array[1]));
       t.is(rawData.deep.nested.array[1].$file, 'ghi.txt');
 
       return readData({ filePath: FILES_PATH });
     })
     .then((output) => {
-      t.same(output, INPUT);
+      t.deepEqual(output, INPUT);
     });
 });

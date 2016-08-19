@@ -37,7 +37,7 @@ test.serial('expected contents', (t) => {
     .then(() => fsp.readFile(ABC_PATH, 'utf8').then((value) => t.is(value, 'abc')))
     .then(() => {
       const value = require(DEF_PATH);
-      t.same(value, { def: true });
+      t.deepEqual(value, { def: true });
     });
 });
 
@@ -54,6 +54,6 @@ test.serial('non-existant target directory', (t) => {
     .then(() => fsp.readFile(ABC_PATH, 'utf8').then((value) => t.is(value, 'abc')))
     .then(() => {
       const value = require(DEF_PATH);
-      t.same(value, { def: true });
+      t.deepEqual(value, { def: true });
     });
 });

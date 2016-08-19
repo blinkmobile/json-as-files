@@ -76,6 +76,6 @@ test('expected missing files: old-abc.txt, old-ghi.txt', (t) => {
 test('expected contents: files.json', (t) => {
   return readData({ filePath: FILES_PATH })
     .then((output) => {
-      t.same(output, INPUT);
+      t.deepEqual(output, INPUT);
     });
 });

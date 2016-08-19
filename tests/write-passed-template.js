@@ -67,6 +67,6 @@ test('expected contents: files.json', (t) => {
     })
     .then(() => readData({ filePath: t.context.jsonPath }))
     .then((output) => {
-      t.same(output, INPUT);
+      t.deepEqual(output, INPUT);
     });
 });
