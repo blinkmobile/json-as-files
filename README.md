@@ -134,6 +134,35 @@ writeData({
 ## API
 
 
+### isFileReference()
+
+```
+isFileReference (value: Any) => Boolean
+```
+
+Does this value conform to our definition of a "file reference"?
+
+
+### findReferences()
+
+```
+findReferences (data: Object) => Promise[FoundReference[]]
+```
+
+Scan a data structure to locate references. Used internally.
+
+
+#### FoundReference
+
+```
+interface FoundReference {
+  path: String[], // property path to the reference within the parent structure
+  target: String, // for "$file" references, this is a filename or path
+  type: String, // only "$file" has been implemented so far
+}
+```
+
+
 ### readData()
 
 ```

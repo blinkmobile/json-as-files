@@ -2,13 +2,15 @@
 
 // local modules
 
-const readData = require('./lib/read').readData;
+const read = require('./lib/read');
 const write = require('./lib/write');
 
 // this module
 
 module.exports = {
-  readData,
+  findReferences: read.findReferences,
+  isFileReference: read.isFileReference,
+  readData: read.readData,
   planWriteData: write.planWriteData,
   writeData: write.writeData,
   writePlan: write.writePlan
