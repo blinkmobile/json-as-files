@@ -35,7 +35,12 @@
     "npm": ">=3.0.0"
   },
   "homepage": "https://github.com/blinkmobile/json-as-files.js#readme",
-  "keywords": [],
+  "keywords": [
+    "content",
+    "data",
+    "files",
+    "json"
+  ],
   "license": "BSD-3-Clause",
   "main": "index.js",
   "publishConfig": {
