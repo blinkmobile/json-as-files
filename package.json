@@ -22,7 +22,7 @@
     "eslint-plugin-promise": "^2.0.0",
     "eslint-plugin-standard": "^2.0.0",
     "fixpack": "^2.2.0",
-    "flow-bin": "^0.30.0",
+    "flow-bin": "^0.32.0",
     "mkdirp": "^0.5.1",
     "nyc": "^8.1.0",
     "temp": "^0.8.3"
