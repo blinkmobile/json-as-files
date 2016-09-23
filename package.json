@@ -23,6 +23,7 @@
     "eslint-plugin-standard": "^2.0.0",
     "fixpack": "^2.2.0",
     "flow-bin": "^0.32.0",
+    "greenkeeper-postpublish": "^1.0.1",
     "mkdirp": "^0.5.1",
     "nyc": "^8.1.0",
     "temp": "^0.8.3"
@@ -56,6 +57,7 @@
     "fixpack": "fixpack",
     "flow_check": "flow check || exit 0",
     "nyc": "nyc check-coverage",
+    "postpublish": "greenkeeper-postpublish",
     "posttest": "npm run eslint && npm run flow_check && npm run fixpack",
     "test": "npm run ava && npm run nyc"
   }
