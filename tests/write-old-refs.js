@@ -13,6 +13,7 @@ const test = require('ava');
 
 // local modules
 
+const fsHelpers = require('./helpers/fs.js');
 const readData = require('..').readData;
 const writeData = require('..').writeData;
 
@@ -64,12 +65,8 @@ test('expected missing files: old-abc.txt, old-ghi.txt', (t) => {
   const ABC_PATH = path.join(TEMP_ROOT, 'old-abc.txt');
   const GHI_PATH = path.join(TEMP_ROOT, 'old-ghi.txt');
   return Promise.all([
-    fsp.access(ABC_PATH, fsp.F_OK)
-      .then(() => t.fail('resolved'))
-      .catch(() => t.pass('missing')),
-    fsp.access(GHI_PATH, fsp.F_OK)
-      .then(() => t.fail('resolved'))
-      .catch(() => t.pass('missing'))
+    fsHelpers.assertFileNotExists(t, ABC_PATH),
+    fsHelpers.assertFileNotExists(t, GHI_PATH)
   ]);
 });
 
