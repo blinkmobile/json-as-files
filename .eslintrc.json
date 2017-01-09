@@ -1,6 +1,10 @@
 {
   "extends": [
     "eslint:recommended",
+    "plugin:node/recommended",
     "semistandard"
+  ],
+  "plugins": [
+    "node"
   ]
 }
