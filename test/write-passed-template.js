@@ -7,15 +7,13 @@ const path = require('path');
 // foreign modules
 
 const loadJson = require('load-json-file');
-const pify = require('pify');
 const fsp = require('@jokeyrhyme/pify-fs');
-const temp = pify(require('temp').track());
 const test = require('ava');
 
 // local modules
 
-const pkg = require('../package.json');
 const readData = require('..').readData;
+const temp = require('./helpers/temp.js');
 const writeData = require('..').writeData;
 
 // this module
@@ -33,10 +31,9 @@ const INPUT = {
 };
 
 test.beforeEach((t) => {
-  return temp.mkdir(`${pkg.name.replace(/\//g, '-')}-`)
-    .then((dirPath) => {
-      t.context.tempDir = dirPath;
-      t.context.jsonPath = path.join(dirPath, 'files.json');
+  return temp.makeContextTempDir(t)
+    .then(() => {
+      t.context.jsonPath = path.join(t.context.tempDir, 'files.json');
     })
     .then(() => loadJson(path.join(__dirname, 'fixtures', 'files.json')))
     .then((template) => writeData({

@@ -6,24 +6,17 @@ const path = require('path');
 
 // foreign modules
 
-const pify = require('pify');
 const fsp = require('@jokeyrhyme/pify-fs');
-const temp = pify(require('temp').track());
 const test = require('ava');
 
 // local modules
 
-const pkg = require('../package.json');
+const temp = require('./helpers/temp.js');
 const writePlan = require('..').writePlan;
 
 // this module
 
-test.beforeEach((t) => {
-  return temp.mkdir(`${pkg.name.replace(/\//g, '-')}-`)
-    .then((dirPath) => {
-      t.context.tempDir = dirPath;
-    });
-});
+test.beforeEach((t) => temp.makeContextTempDir(t));
 
 test.serial('expected contents', (t) => {
   const ABC_PATH = path.join(t.context.tempDir, 'abc.txt');
