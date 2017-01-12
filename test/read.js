@@ -13,6 +13,8 @@ const readData = require('..').readData;
 
 const plain = require('./fixtures/plain.json');
 
+process.chdir(__dirname); // adjust for cwd in ava 0.17+
+
 let abc;
 test.before('load abc.txt', (t) => {
   return fsp.readFile('./fixtures/abc.txt', 'utf8')

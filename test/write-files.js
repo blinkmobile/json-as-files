@@ -7,46 +7,17 @@ const path = require('path');
 // foreign modules
 
 const loadJson = require('load-json-file');
-const pify = require('pify');
 const fsp = require('@jokeyrhyme/pify-fs');
-const mkdirpp = pify(require('mkdirp'));
 const test = require('ava');
 
 // local modules
 
 const isFileReference = require('../lib/read').isFileReference;
 const readData = require('..').readData;
+const temp = require('./helpers/temp.js');
 const writeData = require('..').writeData;
 
 // this module
-
-const TEMP_ROOT = path.join(__dirname, '..', 'tmp');
-const FILES_PATH = path.join(TEMP_ROOT, 'files.json');
-
-function fsUnlinkFile (filePath) {
-  return fsp.unlink(filePath)
-    .catch((err) => {
-      // it's fine if the file is already gone
-      if (err.code !== 'ENOENT') {
-        throw err;
-      }
-    });
-}
-
-test.before(`mkdir -p TEMP_ROOT`, (t) => mkdirpp(TEMP_ROOT));
-
-test.beforeEach('copy ./fixtures/files.json -> ../tmp/files.json', () => {
-  return fsp.readFile(path.join(__dirname, 'fixtures', 'files.json'), 'utf8')
-    .then((contents) => {
-      return fsp.writeFile(path.join(TEMP_ROOT, 'files.json'), contents, 'utf8');
-    });
-});
-
-['abc.txt', 'ghi.txt'].forEach((filename) => {
-  test.before(`rm ../tmp/${filename}`, () => {
-    return fsUnlinkFile(path.join(TEMP_ROOT, filename));
-  });
-});
 
 const INPUT = {
   deep: {
@@ -60,13 +31,19 @@ const INPUT = {
   }
 };
 
-test.beforeEach('writeData({ filePath: "../tmp/files.json", data: ... })', (t) => {
-  return writeData({ filePath: FILES_PATH, data: INPUT });
+let FILES_PATH;
+
+test.beforeEach((t) => {
+  return temp.makeContextTempDirWithFixture(t, 'files.json')
+    .then(() => {
+      FILES_PATH = path.join(t.context.tempDir, 'files.json');
+    })
+    .then(() => writeData({ filePath: FILES_PATH, data: INPUT }));
 });
 
 test('expected contents: abc.txt, ghi.txt', (t) => {
-  const ABC_PATH = path.join(TEMP_ROOT, 'abc.txt');
-  const GHI_PATH = path.join(TEMP_ROOT, 'ghi.txt');
+  const ABC_PATH = path.join(t.context.tempDir, 'abc.txt');
+  const GHI_PATH = path.join(t.context.tempDir, 'ghi.txt');
   return fsp.readFile(ABC_PATH, 'utf8')
     .then((abc) => {
       t.is(abc, INPUT.deep.nested.abc);

@@ -2,6 +2,7 @@
   "name": "@blinkmobile/json-as-files",
   "description": "convert between files and JSON strings, maintaining certain values as separate files",
   "version": "1.2.1",
+  "author": "Ron Waldon <jokeyrhyme@gmail.com> (https://github.com/jokeyrhyme)",
   "bugs": {
     "url": "https://github.com/blinkmobile/json-as-files.js/issues"
   },
@@ -16,12 +17,13 @@
     "write-json-file": "^2.0.0"
   },
   "devDependencies": {
-    "ava": "^0.16.0",
-    "eslint": "^3.12.0",
+    "ava": "^0.17.0",
+    "eslint": "^3.13.0",
     "eslint-config-semistandard": "^7.0.0-beta.0",
-    "eslint-config-standard": "^6.0.0-beta.1",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-plugin-node": "^3.0.5",
     "eslint-plugin-promise": "^3.4.0",
-    "eslint-plugin-standard": "^2.0.0",
+    "eslint-plugin-standard": "^2.0.1",
     "fixpack": "^2.2.0",
     "flow-bin": "^0.37.4",
     "greenkeeper-postpublish": "^1.0.1",
@@ -53,10 +55,10 @@
     "url": "git+https://github.com/blinkmobile/json-as-files.js.git"
   },
   "scripts": {
-    "ava": "nyc ava tests/*.js",
+    "ava": "nyc ava",
     "eslint": "eslint --fix --cache .",
     "fixpack": "fixpack",
-    "flow_check": "flow check || exit 0",
+    "flow_check": "flow check",
     "nyc": "nyc check-coverage",
     "postpublish": "greenkeeper-postpublish",
     "posttest": "npm run eslint && npm run flow_check && npm run fixpack",
